@@ -32,13 +32,11 @@ const shabnamFont = localFont({
 
 export default function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { locale: string };
 }>) {
   return (
-    <html lang={params.locale} dir={params.locale === "fa" ? "rtl" : "ltr"}>
+    <html lang="fa" dir="rtl">
       <head>
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -46,7 +44,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/images/logo.webp" />
       </head>
       <body className={shabnamFont.className}>
-        <ThemeRegistry locale={params.locale}>{children}</ThemeRegistry>
+        <ThemeRegistry locale="rtl">{children}</ThemeRegistry>
       </body>
     </html>
   );

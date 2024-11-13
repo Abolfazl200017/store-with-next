@@ -1,17 +1,13 @@
 import { Typography } from "@mui/material";
 import styles from "./page.module.css";
+import Layout from "@/components/layout";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
+    <Layout>
       <main className={styles.main}>
-        <Typography variant="h1">
-          مین is here !
-        </Typography>
+        <Typography variant="h1">مین is here !</Typography>
       </main>
-      <footer className={styles.footer}>
-        footer is here
-      </footer>
-    </div>
-  );
+    </Layout>
+    );
 }
