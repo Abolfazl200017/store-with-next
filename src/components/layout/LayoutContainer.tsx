@@ -15,8 +15,12 @@ export const LayoutContainer: React.FC<LayoutProps> = ({ children }) => {
         margin: 0,
       }}
     >
-      <Header />
-      {children}
+      <Box sx={{ minHeight: "100vh", paddingX: "auto" }}>
+        <Header />
+        <Box component="main" sx={{ minHeight: "100%" }}>
+          {children}
+        </Box>
+      </Box>
       <Footer />
     </Box>
   );

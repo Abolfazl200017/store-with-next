@@ -1,4 +1,6 @@
 {
     "editor.formatOnSave": true,
-    "notebook.formatOnSave.enabled": true
+    "notebook.formatOnSave.enabled": true,
+    "prettier.tabWidth": 2,
+    "editor.tabSize": 2
 }
