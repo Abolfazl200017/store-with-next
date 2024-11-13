@@ -4,17 +4,6 @@ import "./globals.css";
 import { siteConfig } from "@/constants";
 import ThemeRegistry from "@/providers/ThemeRegistry";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
-
 export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
@@ -26,6 +15,20 @@ export const metadata: Metadata = {
     apple: [{ url: "/images/logo.webp", sizes: "180x180" }],
   },
 };
+
+const shabnamFont = localFont({
+  src: [
+    {
+      path: 'fonts/Shabnam.woff',
+      weight: 'normal',
+    },
+    {
+      path: 'fonts/Shabnam-Bold.woff',
+      weight: 'bold',
+    },
+  ],
+  variable: '--font-shabnam',
+})
 
 export default function RootLayout({
   children,
@@ -42,7 +45,7 @@ export default function RootLayout({
         <link rel="icon" type="image/webp" href="/images/logo.webp" />
         <link rel="apple-touch-icon" href="/images/logo.webp" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={shabnamFont.className}>
         <ThemeRegistry locale={params.locale}>{children}</ThemeRegistry>
       </body>
     </html>

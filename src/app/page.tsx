@@ -6,7 +6,7 @@ export default function Home() {
     <div className={styles.page}>
       <main className={styles.main}>
         <Typography variant="h1">
-          main is here !
+          مین is here !
         </Typography>
       </main>
       <footer className={styles.footer}>

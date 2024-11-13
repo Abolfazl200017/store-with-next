@@ -1,5 +1,4 @@
-// src/theme/theme.ts
-import { Components, createTheme, CssVarsTheme, responsiveFontSizes, Theme } from '@mui/material/styles';
+import { Components, createTheme, CssVarsTheme, PaletteOptions, responsiveFontSizes, Theme } from '@mui/material/styles';
 import { Vazirmatn } from 'next/font/google';
 
 const vazirmatn = Vazirmatn({ subsets: ['arabic'] });
@@ -15,7 +14,7 @@ const themeComponents = {
   },
 };
 
-const themePalette = {
+const themePalette: PaletteOptions = {
   primary: {
     main: '#1976d2',
     light: '#42a5f5',
@@ -26,6 +25,10 @@ const themePalette = {
     light: '#ba68c8',
     dark: '#7b1fa2',
   },
+  mode: 'light',
+  background: {
+    default: '#ffffff'
+  }
 };
 
 let theme = createTheme({
