@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { siteConfig } from "@/constants";
 import ThemeRegistry from "@/providers/ThemeRegistry";
+import Layout from "@/components/layout";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -19,16 +20,16 @@ export const metadata: Metadata = {
 const shabnamFont = localFont({
   src: [
     {
-      path: 'fonts/Shabnam.woff',
-      weight: 'normal',
+      path: "fonts/Shabnam.woff",
+      weight: "normal",
     },
     {
-      path: 'fonts/Shabnam-Bold.woff',
-      weight: 'bold',
+      path: "fonts/Shabnam-Bold.woff",
+      weight: "bold",
     },
   ],
-  variable: '--font-shabnam',
-})
+  variable: "--font-shabnam",
+});
 
 export default function RootLayout({
   children,
@@ -44,7 +45,9 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/images/logo.webp" />
       </head>
       <body className={shabnamFont.className}>
-        <ThemeRegistry locale="rtl">{children}</ThemeRegistry>
+        <ThemeRegistry locale="rtl">
+          <Layout>{children}</Layout>
+        </ThemeRegistry>
       </body>
     </html>
   );

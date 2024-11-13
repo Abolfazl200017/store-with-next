@@ -42,6 +42,7 @@ let theme = createTheme({
   },
   palette: themePalette,
   components: themeComponents as Components<Omit<Theme, "components" | "palette"> & CssVarsTheme>,
+  cssVariables: true,
 });
 
 theme = responsiveFontSizes(theme);

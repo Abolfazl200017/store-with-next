@@ -20,3 +20,19 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.text-primary {
+  color: #B88E2F;
+}
+
+.bg-primary {
+  background-color: #B88E2F;
+}
+
+.text-secondary {
+  color: #FFF3E3;
+}
+
+.bg-secondary {
+  background-color: #FFF3E3;
+}
