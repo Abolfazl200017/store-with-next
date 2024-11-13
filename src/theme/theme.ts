@@ -16,13 +16,13 @@ const themeComponents = {
 
 const themePalette: PaletteOptions = {
   primary: {
-    main: '#1976d2',
-    light: '#42a5f5',
+    main: '#B88E2F',
+    light: '#B88E2F',
     dark: '#1565c0',
   },
   secondary: {
-    main: '#9c27b0',
-    light: '#ba68c8',
+    main: '#FFF3E3',
+    light: '#FFF3E3',
     dark: '#7b1fa2',
   },
   mode: 'light',
