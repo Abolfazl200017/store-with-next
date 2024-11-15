@@ -44,11 +44,12 @@ const Register = () => {
       const response = await authService.register(data);
       const token = response.data?.token;
 
-      Cookies.set("authToken", token, {
-        expires: 7,
-        secure: true,
-        sameSite: "Strict",
-      });
+      if (token)
+        Cookies.set("authToken", token, {
+          expires: 7,
+          secure: true,
+          sameSite: "Strict",
+        });
 
       console.log("Login success:", response.data);
     } catch (error) {
