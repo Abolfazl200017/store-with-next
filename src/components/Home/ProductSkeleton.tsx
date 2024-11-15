@@ -12,7 +12,7 @@ const ProductSkeleton = () => {
       className="bg-grey"
     >
       <Skeleton
-        sx={{ aspectRatio: "1/1", backgroundColor: "#f0f0f0" }}
+        sx={{ width: 1, aspectRatio: "1/1", backgroundColor: "#f0f0f0" }}
         variant="rectangular"
       />
       <CardContent>

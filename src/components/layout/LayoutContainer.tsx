@@ -21,7 +21,7 @@ export const LayoutContainer: React.FC<LayoutProps> = ({ children }) => {
           {children}
         </Box>
       </Box>
-      <Footer />
+      {/* <Footer /> */}
     </Box>
   );
 };
