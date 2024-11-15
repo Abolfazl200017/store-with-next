@@ -22,14 +22,14 @@ function LogoName() {
 function LinkList() {
   const Links = [
     { name: "خانه", href: "/" },
-    { name: "محصولات", href: "/products" },
-    { name: "درباره ما", href: "/about" },
+    { name: "محصولات", href: "/" },
+    { name: "درباره ما", href: "/" },
   ];
 
   return (
     <Box component="ul" sx={{ display: { xs: 'none', sm: 'flex'}, alignItems: "center" }}>
       {Links.map((link) => (
-        <Link href={link.href} key={link.href}>
+        <Link href={link.href} key={link.name}>
           <Typography sx={{ fontWeight: "bold", paddingX: 1, color: "black" }}>
             {link.name}
           </Typography>

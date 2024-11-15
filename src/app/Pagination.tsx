@@ -21,8 +21,8 @@ export default function PaginationClient({ total, currentPage }: { total: number
       shape="circular"
       color="secondary"
       onChange={handlePageChange}
-      showFirstButton
-      showLastButton
+      hideNextButton
+      hidePrevButton
     />
   );
 }
