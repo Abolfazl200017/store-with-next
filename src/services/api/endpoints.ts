@@ -11,5 +11,8 @@ export const API_ENDPOINTS = {
   // },
   PRODUCTS: {
     BASE: 'products',
+  },
+  SINGLE_PRODUCT: {
+    BASE: 'products/',
   }
 } as const;

@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { siteConfig } from "@/constants";
 import ThemeRegistry from "@/providers/ThemeRegistry";
-import Layout from "@/components/layout";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -46,7 +45,7 @@ export default function RootLayout({
       </head>
       <body className={shabnamFont.className}>
         <ThemeRegistry locale="rtl">
-          <Layout>{children}</Layout>
+          {children}
         </ThemeRegistry>
       </body>
     </html>

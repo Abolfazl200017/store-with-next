@@ -1,3 +1,4 @@
+import Layout from "@/components/layout";
 import { productsService } from "@/services/api/productsService";
 import { Box, Button, Container, Rating, Typography } from "@mui/material";
 
@@ -14,7 +15,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   return (
-    <>
+    <Layout>
       <Box sx={{ py: 5, width: 1 }} className="bg-secondary">
         <Container maxWidth="lg">
           <Typography sx={{}}>
@@ -61,6 +62,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </Box>
         </Box>
       </Container>
-    </>
+    </Layout>
   );
 }
