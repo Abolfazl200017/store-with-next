@@ -22,9 +22,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </Typography>
         </Container>
       </Box>
-      <Container maxWidth="lg" sx={{ mt: 5 }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 5 }}>
-          <Box component="img" src={product.image} sx={{ width: 1 / 3 }} />
+      <Container maxWidth="lg" sx={{ my: 5 }}>
+        <Box sx={{ display: { xs: 'block', sm: 'flex' }, alignItems: "center", gap: 5 }}>
+          <Box component="img" src={product.image} sx={{ width: { xs: 1, sm: 1/3 }, mb: { xs: 3, sm: 0 } }} />
           <Box>
             <Typography variant="h1">{product.title}</Typography>
             <Typography
