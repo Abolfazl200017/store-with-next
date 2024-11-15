@@ -6,7 +6,6 @@ import PaginationClient from "./Pagination";
 import Banner from "@/components/Home/Banner";
 import Categories from "@/components/Home/Categories";
 import ProductCard from "@/components/Home/ProductCard";
-import ProductSkeleton from "@/components/Home/ProductSkeleton";
 
 export default async function Home({
   searchParams,
@@ -41,7 +40,7 @@ export default async function Home({
           محصولات ما
         </Typography>
         <Grid container spacing={2} sx={{ marginTop: 3 }}>
-          {products && products.length > 1000 ? (
+          {products ? (
             products
               .slice((page - 1) * perPage, page * perPage)
               .map((product: Product) => (
@@ -49,21 +48,6 @@ export default async function Home({
                   <Grid key={product.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <ProductCard product={product} />
                   </Grid>
-                  <Box
-                    sx={{
-                      mt: 5,
-                      width: 1,
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <PaginationClient
-                      total={
-                        products ? Math.ceil(products.length / perPage) : 0
-                      }
-                      currentPage={page}
-                    />
-                  </Box>
                 </>
               ))
           ) : (
@@ -82,6 +66,23 @@ export default async function Home({
             </Box>
           )}
         </Grid>
+        {products ? (
+          <Box
+            sx={{
+              mt: 5,
+              width: 1,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <PaginationClient
+              total={products ? Math.ceil(products.length / perPage) : 0}
+              currentPage={page}
+            />
+          </Box>
+        ) : (
+          <></>
+        )}
       </Container>
     </Box>
   );

@@ -1,7 +1,4 @@
 import { Components, createTheme, CssVarsTheme, PaletteOptions, responsiveFontSizes, Theme } from '@mui/material/styles';
-import { Vazirmatn } from 'next/font/google';
-
-const vazirmatn = Vazirmatn({ subsets: ['arabic'] });
 
 const themeComponents = {
   MuiButton: {
@@ -59,7 +56,7 @@ const themePalette: PaletteOptions = {
 let theme = createTheme({
   direction: 'rtl',
   typography: {
-    fontFamily: vazirmatn.style.fontFamily,
+    fontFamily: 'Shabnam',
     h1: {
       fontSize: '2.5rem',
       fontWeight: 700,

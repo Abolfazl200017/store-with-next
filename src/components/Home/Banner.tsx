@@ -1,3 +1,4 @@
+import { theme } from "@/theme/theme";
 import { Box, Button, Typography } from "@mui/material";
 
 const Banner = () => (
@@ -68,6 +69,9 @@ const Banner = () => (
             fontWeight: "bold",
             borderRadius: 0,
             boxShadow: "none",
+            ":hover": {
+              backgroundColor: theme.palette.primary.main,
+            }
           }}
         >
           الان بخرید
