@@ -1,3 +1,4 @@
+import { CannotGetData } from "@/components/common/errors/CannotGetData";
 import Layout from "@/components/layout";
 import { productsService } from "@/services/api/productsService";
 import { Box, Button, Container, Rating, Typography } from "@mui/material";
@@ -8,10 +9,10 @@ interface ProductPageProps {
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const id = (await params).productId;
-  console.log(id);
   const { product } = await productsService.getSingleProduct(id);
+
   if (!product) {
-    return <div>Product not found</div>;
+    return <CannotGetData />;
   }
 
   return (

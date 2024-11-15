@@ -7,6 +7,7 @@ import Banner from "@/components/Home/Banner";
 import Categories from "@/components/Home/Categories";
 import ProductCard from "@/components/Home/ProductCard";
 import Layout from "@/components/layout";
+import { CannotGetData } from "@/components/common/errors/CannotGetData";
 
 export default async function Home({
   searchParams,
@@ -56,19 +57,7 @@ export default async function Home({
                   </>
                 ))
             ) : (
-              <Box
-                sx={{
-                  width: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <Box component="img" src="/images/no-data.svg" />
-                <Typography sx={{ fontSize: "1.5rem" }}>
-                  مشکلی در دریافت اطلاعات پیش آمده لطفا مجددا تلاش نمایید
-                </Typography>
-              </Box>
+              <CannotGetData />
             )}
           </Grid>
           {products ? (
