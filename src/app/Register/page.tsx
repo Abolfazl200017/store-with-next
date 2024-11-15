@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import React from "react";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import {
   Card,
   CardContent,
@@ -12,16 +12,17 @@ import {
   Button,
   Typography,
   Box,
-} from '@mui/material';
-import axios from 'axios';
+} from "@mui/material";
+import { theme } from "@/theme/theme";
+import { authService } from "@/services/api/authService";
+import Cookies from "js-cookie";
 
-// Define the validation schema using Yup
 const schema = yup.object().shape({
-  username: yup.string().required('Username is required'),
+  username: yup.string().required("نام کاربری باید وارد شود"),
   password: yup
     .string()
-    .min(6, 'Password must be at least 6 characters')
-    .required('Password is required'),
+    .min(6, "رمز عبور حداقل باید شامل ۶ حرف باشد")
+    .required("رمز عبور باید وارد شود"),
 });
 
 interface FormValues {
@@ -30,7 +31,6 @@ interface FormValues {
 }
 
 const Register = () => {
-  // Set up React Hook Form with Yup validation
   const {
     handleSubmit,
     control,
@@ -39,25 +39,47 @@ const Register = () => {
     resolver: yupResolver(schema),
   });
 
-  // Handle form submission
   const onSubmit = async (data: FormValues) => {
     try {
-      console.log('Submitting:', data);
+      const response = await authService.register(data);
+      const token = response.data?.token;
 
-      // Example API request
-      const response = await axios.post('/api/login', data);
-      console.log('Login success:', response.data);
+      Cookies.set("authToken", token, {
+        expires: 7,
+        secure: true,
+        sameSite: "Strict",
+      });
+
+      console.log("Login success:", response.data);
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error("Login failed:", error);
     }
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-      <Card sx={{ maxWidth: 400, width: '100%' }}>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
+    >
+      <Card
+        sx={{
+          maxWidth: 400,
+          width: "100%",
+          boxShadow: 0,
+          border: 1,
+          borderColor: theme.palette.secondary.main,
+        }}
+      >
         <CardContent>
-          <Typography variant="h5" component="div" gutterBottom>
-            Login
+          <Typography
+            variant="h5"
+            component="div"
+            gutterBottom
+            sx={{ my: 3, width: 1, textAlign: "center" }}
+          >
+            ورود به حساب کاربری
           </Typography>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Box mb={2}>
@@ -68,7 +90,7 @@ const Register = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Username"
+                    label="نام کاربری"
                     variant="outlined"
                     fullWidth
                     error={!!errors.username}
@@ -85,7 +107,7 @@ const Register = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Password"
+                    label="رمز عبور"
                     type="password"
                     variant="outlined"
                     fullWidth
@@ -97,7 +119,7 @@ const Register = () => {
             </Box>
             <CardActions>
               <Button type="submit" variant="contained" fullWidth>
-                Login
+                ورود
               </Button>
             </CardActions>
           </form>

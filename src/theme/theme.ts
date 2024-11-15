@@ -6,7 +6,8 @@ const themeComponents = {
       root: {
         textTransform: "none",
         "&:hover": {
-          backgroundColor: "#fcf8f3",
+          backgroundColor: "#FFF3E3",
+          color: 'black',
         },
       },
     },
