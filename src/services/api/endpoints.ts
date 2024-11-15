@@ -14,5 +14,8 @@ export const API_ENDPOINTS = {
   },
   SINGLE_PRODUCT: {
     BASE: 'products/',
+  },
+  REGISTER: {
+    BASE: 'auth/login',
   }
 } as const;

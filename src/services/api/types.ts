@@ -19,3 +19,7 @@ export interface Post {
   content: string;
   userId: number;
 }
+
+export interface Token {
+  token: string;
+}
