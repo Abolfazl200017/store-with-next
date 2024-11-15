@@ -2,12 +2,19 @@ import * as React from "react";
 import {
   Box,
   Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
   Container,
   Grid2 as Grid,
+  Pagination,
   Typography,
 } from "@mui/material";
 import Link from "next/link";
 import { productsService } from "@/services/api/productsService";
+import { Product } from "@/services/api/types";
+import PaginationClient from "./Pagination";
 
 type CategoriesImage = {
   name: string;
@@ -28,9 +35,17 @@ const categoriesImage: CategoriesImage[] = [
   },
 ];
 
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const searchParamsValue = await searchParams;
+  const page = Number(searchParamsValue["page"]) || 1;
+  const perPage = 8;
 
-export default function Home() {
-  productsService.getAllProducts().then(console.log)
+  const { products }: { products: Product[] | null } =
+    await productsService.getAllProducts();
 
   return (
     <Box>
@@ -69,15 +84,30 @@ export default function Home() {
             }}
             className="bg-secondary text-primary"
           >
-            <Typography sx={{ color: "black", fontWeight: "bold", display: { xs: 'none', md: 'block'} }}>
+            <Typography
+              sx={{
+                color: "black",
+                fontWeight: "bold",
+                display: { xs: "none", md: "block" },
+              }}
+            >
               محصولات جدید
             </Typography>
-            <Typography variant="h3" sx={{ fontWeight: "bold", marginY: 1, fontSize: { xs: '1rem', sm: '2rem', md: '2.5rem' } }}>
+            <Typography
+              variant="h3"
+              sx={{
+                fontWeight: "bold",
+                marginY: 1,
+                fontSize: { xs: "1rem", sm: "2rem", md: "2.5rem" },
+              }}
+            >
               گردش در
               <br />
               کالکشن‌ پاییزی
             </Typography>
-            <Typography sx={{ color: "black", display: { xs: 'none', md: 'block'} }}>
+            <Typography
+              sx={{ color: "black", display: { xs: "none", md: "block" } }}
+            >
               محصولات جدید در تنوع و کیفیت بسیار بالا و قیمت رقابتی موجود شدند
             </Typography>
             <Box
@@ -86,7 +116,7 @@ export default function Home() {
               <Button
                 variant="contained"
                 sx={{
-                  paddingX: { xs: 1, sm: 3, md: 5},
+                  paddingX: { xs: 1, sm: 3, md: 5 },
                   paddingY: { xs: 1, md: 2 },
                   fontWeight: "bold",
                   borderRadius: 0,
@@ -169,9 +199,92 @@ export default function Home() {
         >
           محصولات ما
         </Typography>
-        <Grid container spacing={2} sx={{ marginTop: 8 }}>
-          
+        <Grid container spacing={2} sx={{ marginTop: 3 }}>
+          {products && products.length ? (
+            products
+              .slice((page - 1) * perPage, page * perPage)
+              .map((product: Product) => (
+                <Grid key={product.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                  <Link href={`product/${product.id}`}>
+                    <Card
+                      sx={{
+                        boxShadow: "none",
+                        borderRadius: 0,
+                        border: 1,
+                        borderColor: "#f4f5f7",
+                      }}
+                      className="bg-grey"
+                    >
+                      <CardMedia
+                        sx={{
+                          aspectRatio: "1/1",
+                          backgroundSize: "contain",
+                          backgroundPosition: "center",
+                          backgroundColor: "white",
+                        }}
+                        image={product.image}
+                        title="green iguana"
+                      />
+                      <CardContent>
+                        <Typography
+                          gutterBottom
+                          variant="h5"
+                          component="div"
+                          sx={{
+                            fontWeight: "bold",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {product.title}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{ color: "text.secondary" }}
+                        >
+                          {product.category}
+                        </Typography>
+                        <Typography
+                          sx={{
+                            color: "black",
+                            fontWeight: "bold",
+                            mt: 1,
+                            fontSize: "1.5 rem",
+                          }}
+                        >
+                          {product.price}
+                        </Typography>
+                      </CardContent>
+                      <CardActions
+                        sx={{ display: "flex", justifyContent: "center" }}
+                      >
+                        <Button
+                          variant="text"
+                          sx={{
+                            backgroundColor: "white",
+                            borderRadius: 0,
+                            px: 3,
+                            py: 1,
+                          }}
+                        >
+                          افزودن به سبد
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </Link>
+                </Grid>
+              ))
+          ) : (
+            <>loading</>
+          )}
         </Grid>
+        <Box sx={{ mt: 5, width: 1, display: "flex", justifyContent: "center" }}>
+          <PaginationClient
+            total={products ? Math.ceil(products.length / perPage) : 0}
+            currentPage={page}
+          />
+        </Box>
       </Container>
     </Box>
   );

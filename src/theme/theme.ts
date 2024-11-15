@@ -7,8 +7,33 @@ const themeComponents = {
   MuiButton: {
     styleOverrides: {
       root: {
-        borderRadius: 8,
-        textTransform: 'none',
+        textTransform: "none",
+        "&:hover": {
+          backgroundColor: "#fcf8f3",
+        },
+      },
+    },
+  },
+  MuiCard: {
+    styleOverrides: {
+      root: {
+        "&:hover": {
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)",
+        },
+      },
+    },
+  },
+  MuiPaginationItem: {
+    styleOverrides: {
+      root: {
+        "&.Mui-selected": {
+          backgroundColor: "#FFF3E3",
+          color: 'black',
+          "&:hover": {
+            backgroundColor: "#B88E2F",
+            color: "#fff",
+          },
+        },
       },
     },
   },

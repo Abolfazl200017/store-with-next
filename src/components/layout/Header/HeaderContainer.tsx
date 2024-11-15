@@ -27,7 +27,7 @@ function LinkList() {
   ];
 
   return (
-    <Box component="ul" sx={{ display: "flex", alignItems: "center" }}>
+    <Box component="ul" sx={{ display: { xs: 'none', sm: 'flex'}, alignItems: "center" }}>
       {Links.map((link) => (
         <Link href={link.href} key={link.href}>
           <Typography sx={{ fontWeight: "bold", paddingX: 1, color: "black" }}>
