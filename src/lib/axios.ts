@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { redirect } from 'next/navigation';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL || 'https://fakestoreapi.com/';
 
@@ -47,7 +48,7 @@ axiosInstance.interceptors.response.use(
     // }
 
     if (error.response?.status >= 500 || error.response?.status === 0)
-      window.location.href = '/server-error';
+      redirect('/server-error');
     
     return Promise.reject(error);
   }

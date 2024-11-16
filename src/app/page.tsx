@@ -8,8 +8,6 @@ import Categories from "@/components/Home/Categories";
 import ProductCard from "@/components/Home/ProductCard";
 import Layout from "@/components/layout";
 import { CannotGetData } from "@/components/common/errors/CannotGetData";
-import { cookies } from "next/headers";
-import { jwtDecode } from "jwt-decode";
 
 export type JWT = {
   iat: string;
@@ -24,10 +22,6 @@ export default async function Home({
   const searchParamsValue = await searchParams;
   const page = Number(searchParamsValue["page"]) || 1;
   const perPage = 8;
-  const cookiesStore = await cookies();
-  const token = cookiesStore.get("authToken")?.value;
-  const user: string | null = token ? (jwtDecode(token) as JWT ).user : null;
-  console.log(user, 'user')
   const { products }: { products: Product[] | null } =
     await productsService.getAllProducts();
 
