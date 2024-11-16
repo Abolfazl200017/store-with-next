@@ -88,7 +88,7 @@ const BannerCarousel = () => {
   const setting = {
     spaceBetween: 50,
       slidesPerView: 1,
-      autoplay: true,
+      autoplay: true
   }
   return (
     <Swiper
