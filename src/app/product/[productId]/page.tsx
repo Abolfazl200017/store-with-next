@@ -1,9 +1,8 @@
 import { CannotGetData } from "@/components/common/errors/CannotGetData";
 import ProductActionsContainer from "@/components/common/ProductActions.tsx";
-import SingleProductActionsView from "@/components/common/ProductActions.tsx/SingleProductActionsView";
 import Layout from "@/components/layout";
 import { productsService } from "@/services/api/productsService";
-import { Box, Button, Container, Rating, Typography } from "@mui/material";
+import { Box, Container, Rating, Typography } from "@mui/material";
 
 interface ProductPageProps {
   params: Promise<{ productId: string }>;
