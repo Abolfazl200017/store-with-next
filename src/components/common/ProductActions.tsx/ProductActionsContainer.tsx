@@ -8,9 +8,11 @@ import SingleProductActionsView from "./SingleProductActionsView";
 const ProductActionsContainer = ({
   product,
   type = "list",
+  isVertical = false,
 }: {
   product: Product;
-  type: "list" | "single";
+  type?: "list" | "single";
+  isVertical?: boolean;
 }) => {
   const { products, addProduct, updateProductQuantity, removeProduct } =
     useBasketStore();
@@ -47,6 +49,7 @@ const ProductActionsContainer = ({
           handleAddToBasket={handleAddToBasket}
           increaseQuantity={increaseQuantity}
           isProductInBasket={isProductInBasket}
+          isVertical={isVertical}
         />
       ) : (
         <SingleProductActionsView
@@ -55,6 +58,7 @@ const ProductActionsContainer = ({
           handleAddToBasket={handleAddToBasket}
           increaseQuantity={increaseQuantity}
           isProductInBasket={isProductInBasket}
+          isVertical={isVertical}
         />
       )}
     </>

@@ -7,15 +7,17 @@ export type BasketActions = {
   decreaseQuantity: () => void;
   handleAddToBasket: () => void;
   getQuantity: () => number;
+  isVertical: boolean;
 };
 
-function ProductListActionsView ({ isProductInBasket, increaseQuantity, decreaseQuantity ,handleAddToBasket, getQuantity }: BasketActions) {
+function ProductListActionsView ({ isProductInBasket, increaseQuantity, decreaseQuantity ,handleAddToBasket, getQuantity, isVertical }: BasketActions) {
   return (
     <Box>
       {isProductInBasket ? (
         <Box
           sx={{
             display: "flex",
+            flexDirection: isVertical ? 'column-reverse' : 'row',
             justifyContent: "space-between",
             alignItems: "center",
             border: 1,
@@ -23,7 +25,8 @@ function ProductListActionsView ({ isProductInBasket, increaseQuantity, decrease
             backgroundColor: theme.palette.secondary.main,
             borderRadius: 3,
             color: "black",
-            height: "40px",
+            height: isVertical ? '100px' : '40px',
+            overflow: 'hidden',
           }}
         >
           <Button
@@ -31,7 +34,9 @@ function ProductListActionsView ({ isProductInBasket, increaseQuantity, decrease
             sx={{
               color: "black",
               fontSize: "1.5rem",
-              height: 1,
+              height: isVertical? '30px' : 1,
+              width: isVertical ? 1 : "auto",
+              padding: isVertical ? 0 : 'auto',
               ":hover": { backgroundColor: "transparent" },
             }}
             onClick={decreaseQuantity}
@@ -46,7 +51,9 @@ function ProductListActionsView ({ isProductInBasket, increaseQuantity, decrease
             sx={{
               color: "black",
               fontSize: "1.1rem",
-              height: 1,
+              height: isVertical? '30px' : 1,
+              width: isVertical ? 1 : "auto",
+              padding: isVertical ? 0 : 'auto',
               ":hover": { backgroundColor: "transparent" },
             }}
             onClick={increaseQuantity}
