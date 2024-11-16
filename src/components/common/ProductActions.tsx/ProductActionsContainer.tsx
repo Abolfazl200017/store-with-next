@@ -4,8 +4,7 @@ import { Product } from "@/services/api/types";
 import useBasketStore from "@/store/basketStore";
 import ProductListActionsView from "./ProductListActionsView";
 import SingleProductActionsView from "./SingleProductActionsView";
-import Cookies from "js-cookie";
-
+  
 const ProductActionsContainer = ({
   product,
   type = "list",
@@ -15,11 +14,6 @@ const ProductActionsContainer = ({
   type?: "list" | "single";
   isVertical?: boolean;
 }) => {
-
-  const isAuthenticated: boolean = Boolean(Cookies.get("authToken"))
-  
-  if (!isAuthenticated)
-    return (<></>)
 
   const { products, addProduct, updateProductQuantity, removeProduct } =
     useBasketStore();
@@ -47,6 +41,7 @@ const ProductActionsContainer = ({
     else updateProductQuantity(product.id.toString(), quantity - 1);
   };
 
+  
   return (
     <>
       {type === "list" ? (

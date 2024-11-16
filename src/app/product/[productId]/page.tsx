@@ -3,6 +3,7 @@ import ProductActionsContainer from "@/components/common/ProductActions.tsx";
 import Layout from "@/components/layout";
 import { productsService } from "@/services/api/productsService";
 import { Box, Container, Rating, Typography } from "@mui/material";
+import { cookies } from "next/headers";
 
 interface ProductPageProps {
   params: Promise<{ productId: string }>;
@@ -11,6 +12,8 @@ interface ProductPageProps {
 export default async function ProductPage({ params }: ProductPageProps) {
   const id = (await params).productId;
   const { product } = await productsService.getSingleProduct(id);
+  const cookieStore = await cookies();
+  const token = cookieStore.get("authToken");
 
   if (!product) {
     return <CannotGetData />;
@@ -67,7 +70,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <Typography sx={{ fontSize: "0.9rem", mt: 2 }}>
               {product.description}
             </Typography>
-            <ProductActionsContainer product={product} type="single" />
+            {!token ? (
+              <></>
+            ) : (
+              <ProductActionsContainer product={product} type="single" />
+            )}
           </Box>
         </Box>
       </Container>

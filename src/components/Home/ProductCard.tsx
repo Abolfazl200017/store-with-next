@@ -10,7 +10,8 @@ import Link from "next/link";
 import { Product } from "@/services/api/types";
 import ProductActionsContainer from "../common/ProductActions.tsx";
 
-const ProductCard = ({ product }: { product: Product }) => (
+
+const ProductCard = ({ product, isShowAction }: { product: Product, isShowAction: boolean }) => (
   <Card
     sx={{
       boxShadow: "none",
@@ -60,9 +61,13 @@ const ProductCard = ({ product }: { product: Product }) => (
         {product.price}
       </Typography>
     </CardContent>
-    <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-      <ProductActionsContainer product={product} type="list" />
-    </CardActions>
+    {
+      isShowAction ? (
+        <CardActions sx={{ display: "flex", justifyContent: "center" }}>
+          <ProductActionsContainer product={product} type="list" />
+        </CardActions>
+      ) : (<></>)
+    }
   </Card>
 );
 

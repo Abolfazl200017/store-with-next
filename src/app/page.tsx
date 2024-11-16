@@ -8,6 +8,7 @@ import Categories from "@/components/Home/Categories";
 import ProductCard from "@/components/Home/ProductCard";
 import Layout from "@/components/layout";
 import { CannotGetData } from "@/components/common/errors/CannotGetData";
+import { cookies } from 'next/headers'
 
 export type JWT = {
   iat: string;
@@ -24,6 +25,9 @@ export default async function Home({
   const perPage = 8;
   const { products }: { products: Product[] | null } =
     await productsService.getAllProducts();
+
+  const cookieStore = await cookies()
+  const token = cookieStore.get('authToken')
 
   return (
     <Layout>
@@ -56,7 +60,7 @@ export default async function Home({
                       key={product.id}
                       size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
                     >
-                      <ProductCard product={product} />
+                      <ProductCard product={product} isShowAction={Boolean(token)} />
                     </Grid>
                   </>
                 ))
