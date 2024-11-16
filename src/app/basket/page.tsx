@@ -153,7 +153,7 @@ export default function BasketPage() {
           </Box>
         </Container>
       ) : (
-        <Container maxWidth='lg'>
+        <Container maxWidth='lg' sx={{ mb: 3 }}>
           <Box component='img' src="/images/empty-basket.svg" sx={{ width: 1 }} />
           <Typography variant="h5" sx={{ width: 1, textAlign: 'center' }}>
             سبد خرید شما خالی است
