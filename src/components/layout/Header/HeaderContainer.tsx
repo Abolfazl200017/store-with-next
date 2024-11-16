@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import LoginIcon from "@mui/icons-material/Login";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function LogoName() {
   return (
@@ -27,7 +28,10 @@ function LinkList() {
   ];
 
   return (
-    <Box component="ul" sx={{ display: { xs: 'none', sm: 'flex'}, alignItems: "center" }}>
+    <Box
+      component="ul"
+      sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center" }}
+    >
       {Links.map((link) => (
         <Link href={link.href} key={link.name}>
           <Typography sx={{ fontWeight: "bold", paddingX: 1, color: "black" }}>
@@ -39,28 +43,36 @@ function LinkList() {
   );
 }
 
-function LoginOrBasket() {
-  const isLoggedIn = false;
+function LoginOrBasket({ user }: { user: string | null }) {
+  const isLoggedIn = !!user;
 
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       {isLoggedIn ? (
-        <Box>
-          <ShoppingBasketIcon />
+        <Box sx={{ display: "flex", alignItems: "center", ml: 1 }}>
+          <Box sx={{ display: "flex", alignItems: "center", mx: 1 }}>
+            {user}
+            {/* <AccountCircleIcon sx={{ mr: 1 }} /> */}
+          </Box>
+          <Link href='/basket'>
+            <ShoppingBasketIcon />
+          </Link>
         </Box>
       ) : (
-        <Link href='/register'>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Link href="/register">
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <Typography sx={{ ml: 1 }}>ورود</Typography>
             <LoginIcon />
-            </Box>
+          </Box>
         </Link>
       )}
     </Box>
   );
 }
 
-export const HeaderContainer: React.FC = () => {
+export const HeaderContainer: React.FC<{ user: string | null }> = ({
+  user,
+}) => {
   return (
     <header>
       <Box
@@ -83,7 +95,7 @@ export const HeaderContainer: React.FC = () => {
         >
           <LogoName />
           <LinkList />
-          <LoginOrBasket />
+          <LoginOrBasket user={user} />
         </Box>
       </Box>
     </header>

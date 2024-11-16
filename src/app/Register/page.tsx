@@ -76,7 +76,7 @@ const Register = () => {
       height="100vh"
       position="relative"
     >
-      {loading || true ? (
+      {loading ? (
         <Box sx={{ width: "100%", position: "absolute", top: 0, right: 0 }}>
           <LinearProgress />
         </Box>
