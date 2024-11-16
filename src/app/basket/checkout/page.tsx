@@ -1,10 +1,13 @@
 "use client";
-import React, { useState } from "react";
-import { Box, Button, Container, TextField, Typography, FormControl } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Button, Container, TextField, Typography, FormControl, Alert } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ReactSelect from "react-select";
+import useBasketStore from "@/store/basketStore";
+import { redirect } from "next/navigation";
+import { useSnackbar } from "@/providers/SnackbarProvider";
 
 // Define the types for provinces and cities
 type Province = { value: string; label: string };
@@ -24,6 +27,8 @@ const validationSchema = Yup.object({
 const CheckoutPage = () => {
   const [selectedProvince, setSelectedProvince] = useState<Province | null>(null);
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
+  const { reset } = useBasketStore();
+  const { showSnackbar } = useSnackbar();
 
   // Example list of provinces and cities
   const provinces: Province[] = [
@@ -63,8 +68,9 @@ const CheckoutPage = () => {
   });
 
   const onSubmit = (data: any) => {
-    
-    console.log(data);
+    reset()
+    showSnackbar('خرید شما با موفقیت ثبت شد', 'success');
+    redirect('/')
   };
 
   const handleSelectProvince = (selectedOption: any) => {

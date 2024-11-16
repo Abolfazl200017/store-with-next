@@ -10,6 +10,7 @@ type BasketState = {
   addProduct: (product: Product, quantity: number) => void;
   updateProductQuantity: (id: string, quantity: number) => void;
   removeProduct: (id: string) => void;
+  reset: () => void;
 };
 
 const useBasketStore = create<BasketState>((set) => ({
@@ -41,6 +42,10 @@ const useBasketStore = create<BasketState>((set) => ({
     set((state) => ({
       products: state.products.filter((product) => product.id.toString() !== id),
     })),
+
+  reset: () => {
+    set(() => ({ products: [] }))
+  }
 }));
 
 export default useBasketStore;

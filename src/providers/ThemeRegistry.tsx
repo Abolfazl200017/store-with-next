@@ -1,21 +1,28 @@
-'use client';
+"use client";
 
-import createCache from '@emotion/cache';
-import { useServerInsertedHTML } from 'next/navigation';
-import { CacheProvider } from '@emotion/react';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { theme } from '@/theme/theme';
-import rtlPlugin from 'stylis-plugin-rtl';
-import { prefixer } from 'stylis';
-import { ReactNode, useState } from 'react';
+import createCache from "@emotion/cache";
+import { useServerInsertedHTML } from "next/navigation";
+import { CacheProvider } from "@emotion/react";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { theme } from "@/theme/theme";
+import rtlPlugin from "stylis-plugin-rtl";
+import { prefixer } from "stylis";
+import { ReactNode, useState } from "react";
+import { SnackbarProvider } from "./SnackbarProvider";
 
-export default function ThemeRegistry({ children, locale }: { children: ReactNode; locale?: string }) {
+export default function ThemeRegistry({
+  children,
+  locale,
+}: {
+  children: ReactNode;
+  locale?: string;
+}) {
   const [{ cache, flush }] = useState(() => {
     const cache = createCache({
-      key: 'mui',
+      key: "mui",
       prepend: true,
-      stylisPlugins: locale === 'fa' ? [prefixer, rtlPlugin] : [prefixer],
+      stylisPlugins: locale === "fa" ? [prefixer, rtlPlugin] : [prefixer],
     });
 
     cache.compat = true;
@@ -41,14 +48,14 @@ export default function ThemeRegistry({ children, locale }: { children: ReactNod
     if (names.length === 0) {
       return null;
     }
-    let styles = '';
+    let styles = "";
     for (const name of names) {
       styles += cache.inserted[name];
     }
     return (
       <style
         key={cache.key}
-        data-emotion={`${cache.key} ${names.join(' ')}`}
+        data-emotion={`${cache.key} ${names.join(" ")}`}
         dangerouslySetInnerHTML={{
           __html: styles,
         }}
@@ -59,8 +66,10 @@ export default function ThemeRegistry({ children, locale }: { children: ReactNod
   return (
     <CacheProvider value={cache}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {children}
+        <SnackbarProvider>
+          <CssBaseline />
+          {children}
+        </SnackbarProvider>
       </ThemeProvider>
     </CacheProvider>
   );
