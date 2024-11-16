@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -12,10 +12,12 @@ import {
   Button,
   Typography,
   Box,
+  LinearProgress,
 } from "@mui/material";
 import { theme } from "@/theme/theme";
 import { authService } from "@/services/api/authService";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const schema = yup.object().shape({
   username: yup.string().required("نام کاربری باید وارد شود"),
@@ -31,6 +33,9 @@ interface FormValues {
 }
 
 const Register = () => {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
   const {
     handleSubmit,
     control,
@@ -40,6 +45,9 @@ const Register = () => {
   });
 
   const onSubmit = async (data: FormValues) => {
+    if (loading)
+      return
+    setLoading(true);
     try {
       const response = await authService.register(data);
       const token = response.data?.token;
@@ -51,9 +59,12 @@ const Register = () => {
           sameSite: "Strict",
         });
 
+      router.push("/");
       console.log("Login success:", response.data);
     } catch (error) {
       console.error("Login failed:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -63,7 +74,15 @@ const Register = () => {
       justifyContent="center"
       alignItems="center"
       height="100vh"
+      position="relative"
     >
+      {loading || true ? (
+        <Box sx={{ width: "100%", position: "absolute", top: 0, right: 0 }}>
+          <LinearProgress />
+        </Box>
+      ) : (
+        <></>
+      )}
       <Card
         sx={{
           maxWidth: 400,
