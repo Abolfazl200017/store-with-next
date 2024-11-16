@@ -1,3 +1,6 @@
+'use client'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 import { theme } from "@/theme/theme";
 import { Box, Button, Typography } from "@mui/material";
 
@@ -81,4 +84,24 @@ const Banner = () => (
   </Box>
 );
 
-export default Banner;
+const BannerCarousel = () => {
+  const setting = {
+    spaceBetween: 50,
+      slidesPerView: 1,
+      autoplay: true,
+  }
+  return (
+    <Swiper
+      {...setting}
+      onSlideChange={() => console.log('slide change')}
+      onSwiper={(swiper) => console.log(swiper)}
+    >
+      <SwiperSlide><Banner /></SwiperSlide>
+      <SwiperSlide><Banner /></SwiperSlide>
+      <SwiperSlide><Banner /></SwiperSlide>
+      <SwiperSlide><Banner /></SwiperSlide>
+    </Swiper>
+  )
+}
+
+export default BannerCarousel;

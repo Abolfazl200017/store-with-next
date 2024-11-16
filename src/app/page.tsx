@@ -3,12 +3,12 @@ import { Box, Container, Grid2 as Grid, Typography } from "@mui/material";
 import { productsService } from "@/services/api/productsService";
 import { Product } from "@/services/api/types";
 import PaginationClient from "./Pagination";
-import Banner from "@/components/Home/Banner";
 import Categories from "@/components/Home/Categories";
 import ProductCard from "@/components/Home/ProductCard";
 import Layout from "@/components/layout";
 import { CannotGetData } from "@/components/common/errors/CannotGetData";
 import { cookies } from 'next/headers'
+import BannerCarousel from "@/components/Home/Banner";
 
 export type JWT = {
   iat: string;
@@ -33,7 +33,7 @@ export default async function Home({
     <Layout>
       <Box>
         <Container maxWidth="xl" disableGutters>
-          <Banner />
+          <BannerCarousel />
         </Container>
         <Container maxWidth="lg" sx={{ my: 8 }}>
           <Categories />
