@@ -44,7 +44,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/images/logo.webp" />
       </head>
       <body className={shabnamFont.className}>
-        <ThemeRegistry locale="rtl">
+        <ThemeRegistry locale="fa">
           {children}
         </ThemeRegistry>
       </body>

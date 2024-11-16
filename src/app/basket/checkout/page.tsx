@@ -1,12 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import { Box, Button, Container, TextField, Typography, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
+import { Box, Button, Container, TextField, Typography, FormControl } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import ReactMapGL, { Marker } from "react-map-gl";
 import ReactSelect from "react-select";
-import axios from "axios";
 
 // Define the types for provinces and cities
 type Province = { value: string; label: string };
@@ -16,37 +14,39 @@ type City = { value: string; label: string };
 const validationSchema = Yup.object({
   name: Yup.string().required("نام باید وارد شود"),
   lastname: Yup.string().required("نام خانوادگی باید وارد شود"),
-  mobile: Yup.string().required("شماره همراه باید وارد شود").matches(/^[0-9]{10}$/, "شماره همراه وارد شده صحیح نمی‌باشد"),
+  mobile: Yup.string().required("شماره همراه باید وارد شود").matches(/^[0-9]{11}$/, "شماره همراه وارد شده صحیح نمی‌باشد"),
   postcode: Yup.string().required("کد پستی باید وارد شود").matches(/^[0-9]{10}$/, "کد پستی صحیح نمی‌باشد"),
   address: Yup.string().required("آدرس باید وارد شود"),
   province: Yup.string().required("استان باید انتخاب شود"),
   city: Yup.string().required("شهر باید انتخاب شود"),
-  gps: Yup.string().required("مکان باید مشخص شود"),
 });
 
 const CheckoutPage = () => {
-  const [viewport, setViewport] = useState({
-    latitude: 35.6892,
-    longitude: 51.3890,
-    zoom: 10,
-  });
   const [selectedProvince, setSelectedProvince] = useState<Province | null>(null);
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
 
-  // Sample provinces and cities (can be fetched dynamically)
+  // Example list of provinces and cities
   const provinces: Province[] = [
-    { value: "tehran", label: "Tehran" },
-    { value: "esfahan", label: "Esfahan" },
-    { value: "mashhad", label: "Mashhad" },
-    // Add other provinces here
+    { value: "tehran", label: "تهران" },
+    { value: "esfahan", label: "اصفهان" },
+    { value: "mashhad", label: "مشهد" },
+    // Add more provinces here
   ];
 
-  const cities: City[] = [
-    { value: "tehran-city", label: "Tehran City" },
-    { value: "esfahan-city", label: "Esfahan City" },
-    { value: "mashhad-city", label: "Mashhad City" },
-    // Add cities based on selected province
-  ];
+  const citiesByProvince: Record<string, City[]> = {
+    tehran: [
+      { value: "tehran-city", label: "تهران" },
+      { value: "karaj", label: "کرج" },
+    ],
+    esfahan: [
+      { value: "isfahan-city", label: "اصفهان" },
+      { value: "kashan", label: "کاشان" },
+    ],
+    mashhad: [
+      { value: "mashhad-city", label: "مشهد" },
+      { value: "neishabur", label: "نیشابور" },
+    ],
+  };
 
   // React Hook Form setup
   const { control, handleSubmit, formState: { errors }, setValue } = useForm({
@@ -59,34 +59,25 @@ const CheckoutPage = () => {
       address: "",
       province: "",
       city: "",
-      gps: "",
     },
   });
 
   const onSubmit = (data: any) => {
+    
     console.log(data);
   };
 
   const handleSelectProvince = (selectedOption: any) => {
     setSelectedProvince(selectedOption);
     setValue("province", selectedOption.value);
-    // Fetch cities based on selected province
-    // In this case, just setting cities as a static list based on selection
+    // Reset city when province changes
+    setSelectedCity(null);
+    setValue("city", "");
   };
 
   const handleSelectCity = (selectedOption: any) => {
     setSelectedCity(selectedOption);
     setValue("city", selectedOption.value);
-  };
-
-  const handleMapClick = (event: any) => {
-    const [longitude, latitude] = event.lngLat;
-    setViewport({
-      ...viewport,
-      latitude,
-      longitude,
-    });
-    setValue("gps", `${longitude},${latitude}`);
   };
 
   return (
@@ -181,19 +172,15 @@ const CheckoutPage = () => {
           control={control}
           render={({ field }) => (
             <FormControl fullWidth sx={{ mb: 3 }}>
-              <InputLabel>استان</InputLabel>
-              <Select
+              <ReactSelect
                 {...field}
-                value={selectedProvince ? selectedProvince.value : ""}
-                onChange={(e) => handleSelectProvince({ value: e.target.value, label: e.target.value })}
-                displayEmpty
-              >
-                {provinces.map((province) => (
-                  <MenuItem key={province.value} value={province.value}>
-                    {province.label}
-                  </MenuItem>
-                ))}
-              </Select>
+                value={selectedProvince}
+                onChange={handleSelectProvince}
+                options={provinces}
+                getOptionLabel={(e: any) => e.label}
+                getOptionValue={(e: any) => e.value}
+                placeholder="انتخاب استان"
+              />
               {errors.province && <Typography color="error">{errors.province.message}</Typography>}
             </FormControl>
           )}
@@ -205,56 +192,20 @@ const CheckoutPage = () => {
           control={control}
           render={({ field }) => (
             <FormControl fullWidth sx={{ mb: 3 }}>
-              <InputLabel>شهر</InputLabel>
-              <Select
+              <ReactSelect
                 {...field}
-                value={selectedCity ? selectedCity.value : ""}
-                onChange={(e) => handleSelectCity({ value: e.target.value, label: e.target.value })}
-                displayEmpty
-              >
-                {cities.map((city) => (
-                  <MenuItem key={city.value} value={city.value}>
-                    {city.label}
-                  </MenuItem>
-                ))}
-              </Select>
+                value={selectedCity}
+                onChange={handleSelectCity}
+                options={selectedProvince ? citiesByProvince[selectedProvince.value] : []}
+                getOptionLabel={(e: any) => e.label}
+                getOptionValue={(e: any) => e.value}
+                placeholder="انتخاب شهر"
+                isDisabled={!selectedProvince}
+              />
               {errors.city && <Typography color="error">{errors.city.message}</Typography>}
             </FormControl>
           )}
         />
-
-        {/* GPS Location */}
-        <Controller
-          name="gps"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              label="مکان جفرافیایی"
-              fullWidth
-              {...field}
-              disabled
-              error={!!errors.gps}
-              helperText={errors.gps ? errors.gps.message : ""}
-              sx={{ mb: 3 }}
-            />
-          )}
-        />
-
-        {/* Map */}
-        {/* <Box sx={{ height: "300px", width: "100%", my: 2 }}>
-          <ReactMapGL
-            {...viewport}
-            mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
-            onViewportChange={setViewport}
-            onClick={handleMapClick}
-          >
-            {viewport.latitude && viewport.longitude && (
-              <Marker latitude={viewport.latitude} longitude={viewport.longitude}>
-                <div>📍</div>
-              </Marker>
-            )}
-          </ReactMapGL>
-        </Box> */}
 
         {/* Submit Button */}
         <Button type="submit" variant="contained" color="primary">
