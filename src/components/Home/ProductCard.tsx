@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { Product } from "@/services/api/types";
-import ProductCardAction from "./ProductCardAction";
+import ProductActionsContainer from "../common/ProductActions.tsx";
 
 const ProductCard = ({ product }: { product: Product }) => (
   <Card
@@ -61,7 +61,7 @@ const ProductCard = ({ product }: { product: Product }) => (
       </Typography>
     </CardContent>
     <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-      <ProductCardAction product={product} />
+      <ProductActionsContainer product={product} type="list" />
     </CardActions>
   </Card>
 );
