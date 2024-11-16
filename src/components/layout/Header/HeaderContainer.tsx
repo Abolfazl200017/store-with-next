@@ -8,15 +8,17 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function LogoName() {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
-      <Box component="img" src="/images/logo.webp" sx={{ height: 50 }} />
-      <Typography variant="h1">{siteConfig.name}</Typography>
-    </Box>
+    <Link href="/">
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Box component="img" src="/images/logo.webp" sx={{ height: 50 }} />
+        <Typography variant="h1">{siteConfig.name}</Typography>
+      </Box>
+    </Link>
   );
 }
 
@@ -54,7 +56,7 @@ function LoginOrBasket({ user }: { user: string | null }) {
             {user}
             {/* <AccountCircleIcon sx={{ mr: 1 }} /> */}
           </Box>
-          <Link href='/basket'>
+          <Link href="/basket">
             <ShoppingBasketIcon />
           </Link>
         </Box>
