@@ -4,7 +4,6 @@ import React from "react";
 import Link from "next/link";
 import LoginIcon from "@mui/icons-material/Login";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function LogoName() {
   return (

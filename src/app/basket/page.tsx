@@ -144,7 +144,7 @@ export default function BasketPage() {
               </Typography>
             </Box>
             <Box>
-              <Link href="">
+              <Link href="/basket/checkout">
                 <Button variant="outlined" sx={{ borderRadius: 5 }}>
                   تکمیل خرید
                 </Button>
