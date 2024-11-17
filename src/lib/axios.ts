@@ -27,7 +27,7 @@ export const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const originalRequest = error.config;
+    // const originalRequest = error.config;
 
     // Handle 401 errors and token refresh
     // if (error.response?.status === 401 && !originalRequest._retry) {
