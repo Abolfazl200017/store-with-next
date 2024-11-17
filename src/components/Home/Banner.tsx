@@ -96,10 +96,10 @@ const BannerCarousel = () => {
       onSlideChange={() => console.log('slide change')}
       onSwiper={(swiper) => console.log(swiper)}
     >
-      <SwiperSlide><Banner /></SwiperSlide>
-      <SwiperSlide><Banner /></SwiperSlide>
-      <SwiperSlide><Banner /></SwiperSlide>
-      <SwiperSlide><Banner /></SwiperSlide>
+      <SwiperSlide key='banner-1'><Banner /></SwiperSlide>
+      <SwiperSlide key='banner-2'><Banner /></SwiperSlide>
+      <SwiperSlide key='banner-3'><Banner /></SwiperSlide>
+      <SwiperSlide key='banner-4'><Banner /></SwiperSlide>
     </Swiper>
   )
 }

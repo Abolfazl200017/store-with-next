@@ -38,6 +38,7 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl">
       <head>
+        <link rel="manifest" href="/manifest.json" />
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/webp" href="/images/logo.webp" />
