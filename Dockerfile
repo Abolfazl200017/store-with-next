@@ -14,7 +14,7 @@ RUN npm install --legacy-peer-deps
 # Copy the source code
 COPY src ./src
 COPY public ./public
-COPY next.config.js ./
+COPY next.config.ts ./
 COPY tsconfig.json ./
 # Copy specific env files instead of wildcard
 COPY .env .env
